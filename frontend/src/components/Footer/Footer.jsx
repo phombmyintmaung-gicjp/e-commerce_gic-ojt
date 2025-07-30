@@ -8,7 +8,7 @@ import ytIcon from "../../assets/youtube.svg";
 
 const Footer = () => {
   return (
-    <footer className="bg-[var(--color-black)] text-white p-10 mt-10">
+    <footer className="bg-[var(--color-black)] text-white p-10 w-full">
       <div className="flex flex-col md:flex-row justify-between items-start gap-10">
         <div className="flex items-center space-x-4">
           <img src={logo} alt="Logo" className="h-16 w-16 border p-1 " />
