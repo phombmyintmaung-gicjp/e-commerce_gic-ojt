@@ -6,7 +6,7 @@ import passwordIcon from "../../assets/login_password_icon.svg";
 
 const Login = () => {
   return (
-    <div className=" mt-16 flex justify-center items-center">
+    <div className=" mt-16 flex justify-center items-center py-10">
       <div className="w-5/12 py-8 px-12 rounded-lg shadow-md text-center bg-[var(--color-section)] border border-[var(--color-highlight)]">
         <div className="flex items-center justify-center my-2.5">
           <img
