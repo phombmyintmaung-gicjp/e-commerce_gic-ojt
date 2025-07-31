@@ -74,19 +74,19 @@ const TopTrends = () => {
   };
 
   return (
-    <div class="bg-[#C3A984] px-[10px] pt-[20px] py-[10px] rounded-lg">
+    <div className="bg-[#C3A984] px-[10px] pt-[20px] py-[10px] rounded-lg">
       <p className="text-2xl font-semibold mb-[14px] text-[var(--color-white)] text-left">Top Trends</p>
       <div className="grid grid-cols-3 gap-3">
         {products.map((product) => (
           <div
             key={product.id}
             onClick={() => handleClick(product.id)}
-            className="relative overflow-hidden rounded-md cursor-pointer transition-transform duration-500 hover:scale-105"
+            className="relative overflow-hidden rounded-md cursor-pointer transition-transform duration-500 "
           >
             <img
               src={product.image}
               alt={product.name}
-              className="w-full h-[100px] object-cover transition-transform duration-300"
+              className="w-full h-[100px] object-cover transition-transform duration-300 hover:scale-125"
             />
             <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">
               {product.price}

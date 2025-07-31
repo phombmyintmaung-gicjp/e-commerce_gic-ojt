@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import loginTitleIcon from "../../assets/login_title_icon.svg";
-import userIcon from "../../assets/login_name_icon.svg";
-import passwordIcon from "../../assets/login_password_icon.svg";
+import loginTitleIcon from "../../../assets/login_title_icon.svg";
+import userIcon from "../../../assets/login_name_icon.svg";
+import passwordIcon from "../../../assets/login_password_icon.svg";
 
 const Login = () => {
   return (

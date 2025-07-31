@@ -1,12 +1,12 @@
 import React from "react";
-import member1 from "../../assets/member1.svg";
-import member2 from "../../assets/member2.svg";
-import member3 from "../../assets/member3.svg";
+import member1 from "../../../assets/member1.svg";
+import member2 from "../../../assets/member2.svg";
+import member3 from "../../../assets/member3.svg";
 
 const AboutUs = () => {
   return (
     <>
-      <section className="hero bg-[var(--color-white)]">
+      <section className="hero bg-[var(--color-white)]" data-aos="fade-in">
         <div className="text-left py-32 bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1527576539890-dfa815648363?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3MjAxN3wwfDF8c2VhcmNofDEwfHxidWlsZGluZ3xlbnwwfHx8fDE3NTM4NDI0ODJ8MA&ixlib=rb-4.1.0&q=85&q=85&fmt=jpg&crop=entropy&cs=tinysrgb&w=450')]">
           <p className="text-[64px] pl-[360px]">About Us</p>
           <p className="text-[16px] pl-[520px]">
@@ -57,7 +57,7 @@ const AboutUs = () => {
           </div>
         </div>
       </section>
-      <section className="our-team bg-[var(--color-section)] py-[60px] px-[110px]">
+      <section className="our-team bg-[var(--color-section)] py-[60px] px-[110px]" data-aos="fade-in">
         <p className="text-[36px] text-left mb-[40px]">Meet Our Team</p>
         <div className="flex justify-between gap-x-[60px]">
           <div className="place-items-center bg-[var(--color-white)] pt-[40px] pb-[26px] px-[20px] rounded-3xl">

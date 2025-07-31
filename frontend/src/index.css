@@ -11,7 +11,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --color-black: #111;
-  --color-white: #FAFAFA;
+  --color-white: #fafafa;
   --color-section: #f5f5eb;
   --color-highlight: #d4af37;
   --color-dark-gray: #888;
@@ -26,7 +26,8 @@ body {
   box-sizing: border-box;
 }
 
-.nav-link, .get-started {
+.nav-link,
+.get-started {
   padding: 10px 20px;
   border-radius: 20px;
 }
@@ -39,19 +40,13 @@ button {
   border-radius: 20px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 400;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
   transition: all 0.5s;
 }
 button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  opacity: 90%;
 }
 
 @keyframes marquee {
@@ -75,6 +70,35 @@ button:focus-visible {
   animation: marquee 10s linear infinite;
 }
 
+.rotating-text {
+  font-weight: 600;
+  height: 2em;
+  background: #f5f5ebc6;
+  padding-top: 5px;
+}
+
+.rotating-text span {
+  animation: fadeInOut 2.5s ease-in-out forwards;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(20%);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20%);
+  }
+}
 
 @media (prefers-color-scheme: light) {
   :root {
