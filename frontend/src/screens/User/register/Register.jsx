@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import registerTitleIcon from "../../assets/register_title_icon.svg";
-import userIcon from "../../assets/login_name_icon.svg";
-import registerEmailIcon from "../../assets/register_email_icon.svg";
-import passwordIcon from "../../assets/login_password_icon.svg";
-import cpasswordIcon from "../../assets/register_cpassword_icon.svg";
+import registerTitleIcon from "../../../assets/register_title_icon.svg";
+import userIcon from "../../../assets/login_name_icon.svg";
+import registerEmailIcon from "../../../assets/register_email_icon.svg";
+import passwordIcon from "../../../assets/login_password_icon.svg";
+import cpasswordIcon from "../../../assets/register_cpassword_icon.svg";
 
 const Register = () => {
   return (

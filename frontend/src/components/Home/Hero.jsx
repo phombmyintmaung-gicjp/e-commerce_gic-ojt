@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-const Hero = () => {
+const Hero = ({ onCategoryClick }) => {
   const categories = ["Men", "Women", "Kids", "New", "Trends"];
   const chunkArray = (arr, size) => {
     const chunks = [];
@@ -28,12 +27,13 @@ const Hero = () => {
               row.length < 3 ? "justify-center" : "justify-between"
             }`}>
             {row.map((cat) => (
-              <Link
+              <button
                 key={cat}
                 to={`/category/${cat.toLowerCase()}`}
+                onClick={() => onCategoryClick(cat)}
                 className="px-5 py-2 bg-[var(--color-black)] text-white transition-all hover:-translate-y-1 hover:text-[var(--color-white)] border border-[var(--color-black)] drop-shadow-lg rounded-lg text-center min-w-[120px]">
                 {cat}
-              </Link>
+              </button>
             ))}
           </div>
         ))}

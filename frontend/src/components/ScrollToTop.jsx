@@ -28,6 +28,10 @@ function ScrollToTop({ isAuthPage = false }) {
         fontSize: "20px",
         boxShadow: "0px 4px 8px rgba(0,0,0,0.2)",
         cursor: "pointer",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 0,
       }}
       title="Go to Top">
       ↑

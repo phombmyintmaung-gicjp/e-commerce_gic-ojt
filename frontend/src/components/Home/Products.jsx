@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-const Products = () => {
+const Products = ({ activeTab, setActiveTab }) => {
   const categories = [
     "All",
     "Men",
@@ -28,7 +28,6 @@ const Products = () => {
     ];
     return acc;
   }, {});
-  const [activeTab, setActiveTab] = useState("All");
   const scrollRef = useRef(null);
   let isDown = false;
   let startX;
@@ -100,12 +99,11 @@ const Products = () => {
                     alt={`${activeTab}-${index}`}
                     className="w-[250px] h-[250px] object-cover rounded-3xl mb-2 border border-[var(--color-black)]"
                   />
-                  <div className="w-full flex justify-between items-center text-sm">
+                  <div className="w-full flex justify-between items-start text-sm">
                     {/* Left: product name */}
                     <p className="font-semibold text-gray-800 truncate max-w-[60%]">
                       {`${activeTab} Product ${index + 1}`}
                     </p>
-
                     {/* Right: price + rating */}
                     <div className="flex flex-col items-end text-yellow-500">
                       <span className="font-semibold text-gray-900">

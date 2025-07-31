@@ -25,7 +25,7 @@ const NavBar = ({ isAuthPage = false }) => {
   return (
     <nav
       className={`px-6 py-1.5 flex items-center justify-between border-b bg-white z-50 transition-all duration-300 w-full sticky top-0 ${
-        isSticky && !isAuthPage ? "shadow-md py-1" : "py-4"
+        isSticky && !isAuthPage ? "shadow-md py-2" : "py-4"
       }`}>
       <NavLink to="/" className="flex items-center space-x-2">
         <img
@@ -55,6 +55,7 @@ const NavBar = ({ isAuthPage = false }) => {
           <li>
             <NavLink
               to="/cart"
+              id="cart-icon"
               className={({ isActive }) =>
                 `group nav-link flex items-center gap-1 text-base uppercase font-serif transition-colors ${
                   isActive

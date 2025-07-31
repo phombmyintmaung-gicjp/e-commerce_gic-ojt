@@ -22,6 +22,21 @@ const slides = [
     title: "🎉 New Arrivals",
     text: "Explore our latest collections today",
   },
+  {
+    src: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=300&q=80",
+    title: "🔥 Mega Sale Week",
+    text: "Up to 50% off on selected items!",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=300&q=80",
+    title: "🚚 Free Shipping",
+    text: "On all orders over $99",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=300&q=80",
+    title: "🎉 New Arrivals",
+    text: "Explore our latest collections today",
+  },
 ];
 
 export default function Carousel() {
@@ -34,7 +49,7 @@ export default function Carousel() {
         modules={[Navigation, Autoplay, Pagination]}
         autoplay={{ delay: 3000 }}
         loop
-        pagination={{ clickable: true, type: 'bullets' }}
+        pagination={{ clickable: true, type: "bullets" }}
         navigation={{
           prevEl: prevRef.current,
           nextEl: nextRef.current,

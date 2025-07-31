@@ -5,12 +5,14 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 import NavBar from "./components/NavBar/NavBar";
 import ScrollToTop from "./components/ScrollToTop";
-import Login from "./screens/login/Login";
-import Home from "./screens/home/Home";
-import Register from "./screens/register/Register";
+import Login from "./screens/User/login/Login";
+import Home from "./screens/User/home/Home";
+import Register from "./screens/User/register/Register";
 import Footer from "./components/Footer/Footer";
-import AboutUS from "./screens/AboutUs/AboutUS";
-import Shop from "./screens/Shop/Shop";
+import Shop from "./screens/User/shop/Shop";
+import AboutUs from "./screens/User/AboutUs/AboutUs";
+import Cart from "./screens/User/cart/Cart";
+import ProductDetails from "./screens/User/productdetails/ProductDetails";
 
 function App() {
   const location = useLocation();
@@ -26,9 +28,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/:category/products/:id/details" element={<ProductDetails />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/about-us" element={<AboutUS />} />
+        <Route path="/about-us" element={<AboutUs />} />
       </Routes>
       <Footer />
     </>

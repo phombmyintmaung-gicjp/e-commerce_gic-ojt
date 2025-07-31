@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Carousel from "../../components/Shop/Carousel";
-import TopTrends from "../../components/Shop/TopTrends";
-import Products from "../../components/Shop/Products";
+import Carousel from "../../../components/Shop/Carousel";
+import TopTrends from "../../../components/Shop/TopTrends";
+import Products from "../../../components/Shop/Products";
 
 const Shop = () => {
   // Data arrays
@@ -21,7 +21,7 @@ const Shop = () => {
   return (
     <section className="px-[80px] py-[20px]">
       {/* Search & Filter Controls */}
-      <div className="flex justify-center gap-[15px] items-center p-4 rounded-md">
+      <div className="flex justify-center gap-[15px] items-center sticky top-20 z-50">
         {/* Search */}
         <input
           type="text"
@@ -74,7 +74,9 @@ const Shop = () => {
         <TopTrends />
       </div>
       {/* products */}
-      <Products />
+      <div data-aos="fade-in">
+        <Products />
+      </div>
     </section>
   );
 };
