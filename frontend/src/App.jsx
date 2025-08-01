@@ -18,6 +18,7 @@ import AdminNavBar from "./components/NavBar/AdminNavBar";
 import AdminSideBar from "./components/AdminSideBar/AdminSideBar";
 import AdminMainContent from "./screens/Admin/AdminMainContent";
 import UsersList from "./screens/Admin/userslist/UsersList";
+import AddCategory from "./screens/Admin/categoryadd/AddCategory";
 
 function App() {
   const location = useLocation();
@@ -47,6 +48,22 @@ function App() {
           element={
             <AdminMainContent>
               <UsersList />
+            </AdminMainContent>
+          }
+        />
+        <Route
+          path="/admin/categories/add"
+          element={
+            <AdminMainContent>
+              <AddCategory />
+            </AdminMainContent>
+          }
+        />
+        <Route
+          path="/admin/categories/list"
+          element={
+            <AdminMainContent>
+              <CategoryList />
             </AdminMainContent>
           }
         />
