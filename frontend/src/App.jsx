@@ -13,28 +13,56 @@ import Shop from "./screens/User/shop/Shop";
 import AboutUs from "./screens/User/AboutUs/AboutUs";
 import Cart from "./screens/User/cart/Cart";
 import ProductDetails from "./screens/User/productdetails/ProductDetails";
+import AdminDashboard from "./screens/Admin/admindashboard/AdminDashboard";
+import AdminNavBar from "./components/NavBar/AdminNavBar";
+import AdminSideBar from "./components/AdminSideBar/AdminSideBar";
+import AdminMainContent from "./screens/Admin/AdminMainContent";
+import UsersList from "./screens/Admin/userslist/UsersList";
 
 function App() {
   const location = useLocation();
   const isAuthPage =
     location.pathname === "/login" || location.pathname === "/register";
+  const isAdminPage = location.pathname.startsWith("/admin");
   useEffect(() => {
     AOS.init({ duration: 1500 });
   }, []);
   return (
     <>
-      <NavBar isAuthPage={isAuthPage} />
+      {isAdminPage ? <AdminNavBar /> : <NavBar isAuthPage={isAuthPage} />}
+      {isAdminPage && <AdminSideBar />}
       <ScrollToTop isAuthPage={isAuthPage} />
       <Routes>
+        {/* admin routes */}
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminMainContent>
+              <AdminDashboard />
+            </AdminMainContent>
+          }
+        />
+        <Route
+          path="/admin/users"
+          element={
+            <AdminMainContent>
+              <UsersList />
+            </AdminMainContent>
+          }
+        />
+        {/* user routes */}
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/:category/products/:id/details" element={<ProductDetails />} />
+        <Route
+          path="/:category/products/:id/details"
+          element={<ProductDetails />}
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/about-us" element={<AboutUs />} />
       </Routes>
-      <Footer />
+      {!isAuthPage && !isAdminPage && <Footer />}
     </>
   );
 }
