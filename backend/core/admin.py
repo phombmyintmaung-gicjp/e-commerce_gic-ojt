@@ -1,0 +1,33 @@
+from django.contrib import admin
+from .models import (
+    Customer,
+    Category,
+    Product,
+    Order,
+    Region,
+    Township,
+    ShippingAddress,
+    ShippingFee,
+    Payment,
+    PaymentMethod,
+    Review,
+    Cart,
+    Inventory,
+    CartItem,
+    ProductDiscount
+)
+admin.site.register(Customer)
+admin.site.register(Category)
+admin.site.register(Product)
+admin.site.register(Order)
+admin.site.register(Region)
+admin.site.register(Township)
+admin.site.register(ShippingAddress)
+admin.site.register(ShippingFee)
+admin.site.register(Payment)
+admin.site.register(Review)
+admin.site.register(Cart)
+admin.site.register(Inventory)
+admin.site.register(CartItem)
+admin.site.register(ProductDiscount)
+admin.site.register(PaymentMethod)
