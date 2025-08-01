@@ -53,9 +53,9 @@ const orderTableData = [
 
 const AdminDashboard = () => {
   return (
-    <section className="px-32">
+    <section >
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8 px-36">
         {summaryData.map((item, index) => (
           <div
             key={index}
@@ -67,7 +67,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Orders Bar Chart */}
-      <div className="p-6 mb-8">
+      <div className="p-6">
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={monthlyOrders}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -80,7 +80,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Orders Table */}
-      <div className=" p-6">
+      <div className="p-6">
         <h2 className="text-lg font-semibold mb-4">Recent Orders</h2>
         <div className="overflow-x-auto">
           <table className="min-w-full text-left border border-gray-200">
