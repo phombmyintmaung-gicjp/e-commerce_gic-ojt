@@ -18,8 +18,9 @@ import AdminNavBar from "./components/NavBar/AdminNavBar";
 import AdminSideBar from "./components/AdminSideBar/AdminSideBar";
 import AdminMainContent from "./screens/Admin/AdminMainContent";
 import UsersList from "./screens/Admin/userslist/UsersList";
-import AddCategory from "./screens/Admin/categoryadd/AddCategory";
 import UserEdit from "./screens/Admin/userslist/UserEdit";
+import CategoryAdd from "./screens/Admin/categoryadd/CategoryAdd";
+import CategoryList from "./screens/Admin/categoryadd/CategoryList";
 
 function App() {
   const location = useLocation();
@@ -56,7 +57,7 @@ function App() {
           path="/admin/categories/add"
           element={
             <AdminMainContent>
-              <AddCategory />
+              <CategoryAdd />
             </AdminMainContent>
           }
         />
@@ -68,7 +69,7 @@ function App() {
             </AdminMainContent>
           }
         />
-       <Route
+        <Route
           path="admin/users/:id/edit"
           element={
             <AdminMainContent>

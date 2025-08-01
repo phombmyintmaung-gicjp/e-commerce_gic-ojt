@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AddCategory = () => {
+const CategoryAdd = () => {
     return (
         <section className='max-w-xl'>
             <label className='block text-[24px] text-left'>Add Category</label>
@@ -19,4 +19,4 @@ const AddCategory = () => {
     )
 }
 
-export default AddCategory
+export default CategoryAdd
