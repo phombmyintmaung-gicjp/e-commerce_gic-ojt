@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
+import HomeIcon from "../../assets/home_icon.svg";
 import UserIcon from "../../assets/user_icon.svg";
 import CategoryIcon from "../../assets/cat_icon.svg";
 import ProductIcon from "../../assets/product_icon.svg";
@@ -101,6 +102,13 @@ const AdminSideBar = () => {
         expanded ? "w-64" : "w-16"
       } h-[calc(100vh-6rem)] overflow-y-auto`}>
       <div className="flex flex-col h-full">
+        <NavLink
+          to="/admin/dashboard"
+          onClick={() => setExpanded(!expanded)}
+          className="flex items-center w-full px-4 py-3 hover:opacity-90 text-[var(--color-black)] bg-[var(--color-section)]">
+          <img src={HomeIcon} alt="Logout" className="w-6 h-6" />
+          {expanded && <span className="ml-4">Dashboard</span>}
+        </NavLink>
         <div className="flex-1">
           {menuItems.map((item, idx) => {
             const isAnySubmenuActive = item.submenu.some(

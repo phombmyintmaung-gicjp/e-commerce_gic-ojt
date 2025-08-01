@@ -18,6 +18,7 @@ import AdminNavBar from "./components/NavBar/AdminNavBar";
 import AdminSideBar from "./components/AdminSideBar/AdminSideBar";
 import AdminMainContent from "./screens/Admin/AdminMainContent";
 import UsersList from "./screens/Admin/userslist/UsersList";
+import UserEdit from "./screens/Admin/userslist/UserEdit";
 
 function App() {
   const location = useLocation();
@@ -47,6 +48,14 @@ function App() {
           element={
             <AdminMainContent>
               <UsersList />
+            </AdminMainContent>
+          }
+        />
+        <Route
+          path="admin/users/:id/edit"
+          element={
+            <AdminMainContent>
+              <UserEdit />
             </AdminMainContent>
           }
         />

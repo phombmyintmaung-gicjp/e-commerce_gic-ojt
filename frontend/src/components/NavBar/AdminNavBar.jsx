@@ -13,7 +13,7 @@ const AdminNavBar = () => {
     }`;
 
   return (
-    <nav className="px-6 py-4 flex items-center justify-between border-b bg-[var(--color-white)] z-50 transition-all duration-300 w-full sticky top-0 shadow-md h-24">
+    <nav className="px-6 py-4 flex items-center justify-between border-b bg-[var(--color-white)] z-50 transition-all duration-300 w-full sticky top-0 h-24">
       <NavLink to="/" className="flex items-center space-x-2">
         <img
           src={logo}
