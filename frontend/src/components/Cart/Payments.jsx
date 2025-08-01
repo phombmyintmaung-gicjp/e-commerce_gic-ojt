@@ -28,7 +28,6 @@ const Payments = () => {
   );
   const [mobileNumber, setMobileNumber] = useState("");
   const [screenshot, setScreenshot] = useState(null);
-console.log(screenshot);
 
   const selectedMethod = paymentMethods.find(
     (method) => method.id === selectedMethodId
