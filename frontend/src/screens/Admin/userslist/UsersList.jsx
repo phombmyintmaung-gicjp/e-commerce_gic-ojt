@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import EditIcon from "../../../assets/edit_icon.svg";
 import DeleteIcon from "../../../assets/delete_icon.svg";
+import ConfirmModal from "../../../components/ConfirmModal";
+import Pagination from "../../../components/Pagination";
 
 const mockUsers = [
   {
@@ -40,10 +42,31 @@ const mockUsers = [
 
 const UsersList = () => {
   const [search, setSearch] = useState("");
-  const [sortType, setSortType] = useState(""); // "name" | "date"
+  const [sortType, setSortType] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 5;
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
 
+  const openDeleteModal = (user) => {
+    setUserToDelete(user);
+    setShowDeleteModal(true);
+  };
+  const closeDeleteModal = () => {
+    setUserToDelete(null);
+    setShowDeleteModal(false);
+  };
+  const handleDelete = () => {
+    if (userToDelete) {
+      // You can call your delete API or logic here
+      console.log("Deleting user:", userToDelete);
+
+      // For demo, just close modal and filter out user
+      // In real app, update your data source properly
+      // e.g. setUsers(users.filter(u => u.id !== userToDelete.id));
+      closeDeleteModal();
+    }
+  };
   const goToPage = (page) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
@@ -88,7 +111,6 @@ const UsersList = () => {
           Add User
         </button>
       </div>
-
       {/* User Table */}
       <div className="overflow-x-auto">
         <table className="min-w-full border border-gray-300 text-sm text-left">
@@ -122,13 +144,16 @@ const UsersList = () => {
                       className="w-6 h-6 transition hover:opacity-90"
                     />
                   </Link>
-                  <Link className="text-[var(--color-warning)] hover:underline">
+                  <button
+                    onClick={() => openDeleteModal(user)}
+                    className="text-[var(--color-warning)] hover:underline"
+                    type="button">
                     <img
                       src={DeleteIcon}
                       alt="Delete"
                       className="w-6 h-6 transition hover:opacity-90"
                     />
-                  </Link>
+                  </button>
                 </td>
               </tr>
             ))}
@@ -142,34 +167,20 @@ const UsersList = () => {
           </tbody>
         </table>
       </div>
-
       {/* Pagination */}
-      <div className="flex justify-center mt-8 gap-2 text-[14px]">
-        <button
-          onClick={() => goToPage(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="px-2">
-          {"<"}
-        </button>
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
-          <button
-            key={num}
-            onClick={() => goToPage(num)}
-            className={`px-3 py-1 rounded ${
-              num === currentPage
-                ? "bg-[var(--color-highlight)] text-[var(--color-black)]"
-                : "text-[var(--color-black)]"
-            }`}>
-            {num}
-          </button>
-        ))}
-        <button
-          onClick={() => goToPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className="px-2">
-          {">"}
-        </button>
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={goToPage}
+      />
+      {/* Confirm Delete Modal */}
+      <ConfirmModal
+      show={showDeleteModal}
+      title="Delete User" message=
+      {`Are you sure you want to delete user "${userToDelete?.name}"?`}
+      onConfirm={handleDelete}
+      onCancel={closeDeleteModal}
+      />
     </section>
   );
 };
