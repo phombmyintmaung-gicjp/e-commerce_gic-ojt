@@ -21,6 +21,8 @@ import UsersList from "./screens/Admin/userslist/UsersList";
 import UserEdit from "./screens/Admin/userslist/UserEdit";
 import CategoryAdd from "./screens/Admin/categoryadd/CategoryAdd";
 import CategoryList from "./screens/Admin/categoryadd/CategoryList";
+import ProductAdd from "./screens/Admin/product/productAdd";
+
 
 function App() {
   const location = useLocation();
@@ -62,10 +64,18 @@ function App() {
           }
         />
         <Route
-          path="/admin/categories/list"
+          path="/admin/categories"
           element={
             <AdminMainContent>
               <CategoryList />
+            </AdminMainContent>
+          }
+        />
+        <Route
+          path="/admin/products/add"
+          element={
+            <AdminMainContent>
+              <ProductAdd />
             </AdminMainContent>
           }
         />
@@ -77,6 +87,7 @@ function App() {
             </AdminMainContent>
           }
         />
+
         {/* user routes */}
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
