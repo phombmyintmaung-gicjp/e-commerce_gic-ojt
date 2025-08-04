@@ -14,17 +14,18 @@ const AdminNavBar = () => {
 
   return (
     <nav className="px-6 py-4 flex items-center justify-between border-b bg-[var(--color-white)] z-50 transition-all duration-300 w-full sticky top-0 h-24">
-      <NavLink to="/" className="flex items-center space-x-2">
+      <NavLink
+        to="/admin/dashboard"
+        className="flex items-center space-x-2"
+        id="admin-dashboard">
         <img
           src={logo}
           alt="Logo"
           className="transition-transform duration-500 h-20 w-20 hover:rotate-180"
         />
-        <NavLink to="/admin/dashboard" id="admin-dashboard">
-          <span className="uppercase text-2xl font-bold text-[var(--color-black)] font-serif tracking-wider">
-            The Clothique
-          </span>
-        </NavLink>
+        <span className="uppercase text-2xl font-bold text-[var(--color-black)] font-serif tracking-wider">
+          The Clothique
+        </span>
       </NavLink>
 
       <p className="text-[32px]">Admin Dashboard</p>

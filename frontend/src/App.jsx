@@ -21,7 +21,10 @@ import UsersList from "./screens/Admin/userslist/UsersList";
 import UserEdit from "./screens/Admin/userslist/UserEdit";
 import CategoryAdd from "./screens/Admin/categoryadd/CategoryAdd";
 import CategoryList from "./screens/Admin/categoryadd/CategoryList";
+
 import ProductAdd from "./screens/Admin/product/productAdd";
+import OrdersList from "./screens/Admin/orderlist/OrdersList";
+import OrderEdit from "./screens/Admin/orderlist/OrderEdit";
 
 
 function App() {
@@ -84,6 +87,22 @@ function App() {
           element={
             <AdminMainContent>
               <UserEdit />
+            </AdminMainContent>
+          }
+        />
+        <Route
+          path="admin/orders"
+          element={
+            <AdminMainContent>
+              <OrdersList />
+            </AdminMainContent>
+          }
+        />
+        <Route
+          path="admin/orders/:id/edit"
+          element={
+            <AdminMainContent>
+              <OrderEdit />
             </AdminMainContent>
           }
         />
