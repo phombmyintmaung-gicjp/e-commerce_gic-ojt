@@ -1,0 +1,49 @@
+import {
+  getRequest,
+  postRequest,
+  putRequest,
+  deleteRequest,
+} from "./httpService";
+
+// Auth
+export function loginUser(data) {
+  return postRequest("token/", data);
+}
+
+export function refreshToken(data) {
+  return postRequest("token/refresh/", data);
+}
+
+export const logoutUser = () => {
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('user');
+};
+
+export function createUser(data) {
+  return postRequest("user/create/", data);
+}
+
+// Items
+export function getProducts() {
+  return getRequest("products/");
+}
+
+export function viewDetail(pk) {
+  return getRequest(`products/${pk}`);
+}
+
+export function createItem(data) {
+  return postRequest("items/", data);
+}
+
+export function updateItem(id, data) {
+  return putRequest(`items/${id}/`, data);
+}
+
+export function deleteItem(id) {
+  return deleteRequest(`items/${id}/`);
+}
+
+export const chatBotMessage = (message) => {
+  return postRequest("chatbot/", { message });
+};
