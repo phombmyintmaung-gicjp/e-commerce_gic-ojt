@@ -22,6 +22,8 @@ import UserEdit from "./screens/Admin/userslist/UserEdit";
 import CategoryAdd from "./screens/Admin/categoryadd/CategoryAdd";
 import CategoryList from "./screens/Admin/categoryadd/CategoryList";
 import ProductAdd from "./screens/Admin/product/productAdd";
+import ProductVariantAdd from "./screens/Admin/product/ProductVariantAdd";
+import ProductList from "./screens/Admin/product/ProductList";
 
 
 function App() {
@@ -76,6 +78,22 @@ function App() {
           element={
             <AdminMainContent>
               <ProductAdd />
+            </AdminMainContent>
+          }
+        />
+        <Route
+          path="/admin/products"
+          element={
+            <AdminMainContent>
+              <ProductList />
+            </AdminMainContent>
+          }
+        />
+        <Route
+          path="/admin/products/variants/add"
+          element={
+            <AdminMainContent>
+              <ProductVariantAdd />
             </AdminMainContent>
           }
         />
