@@ -67,9 +67,9 @@ const menuItems = [
     label: "Inventory Management",
     submenu: [
       {
-        label: "Add Items to Inventory",
+        label: "Manage Items",
         icon: AddInventoryIcon,
-        path: "/admin/inventory/add",
+        path: "/admin/inventory/1/edit",
       },
       {
         label: "Items in Inventory",
