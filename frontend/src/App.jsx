@@ -25,8 +25,11 @@ import CategoryList from "./screens/Admin/categoryadd/CategoryList";
 import ProductAdd from "./screens/Admin/product/productAdd";
 import OrdersList from "./screens/Admin/orderlist/OrdersList";
 import OrderEdit from "./screens/Admin/orderlist/OrderEdit";
+import ProductVariantAdd from "./screens/Admin/product/ProductVariantAdd";
+import ProductList from "./screens/Admin/product/ProductList";
 import InventoryEdit from "./screens/Admin/Inventory/InventoryEdit";
 import InventoryList from "./screens/Admin/Inventory/InventoryList";
+
 
 
 function App() {
@@ -81,6 +84,22 @@ function App() {
           element={
             <AdminMainContent>
               <ProductAdd />
+            </AdminMainContent>
+          }
+        />
+        <Route
+          path="/admin/products"
+          element={
+            <AdminMainContent>
+              <ProductList />
+            </AdminMainContent>
+          }
+        />
+        <Route
+          path="/admin/products/variants/add"
+          element={
+            <AdminMainContent>
+              <ProductVariantAdd />
             </AdminMainContent>
           }
         />
