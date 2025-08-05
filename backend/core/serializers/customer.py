@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
-from ..models import Customer, Township, Region # Adjust import path if needed
+from ..models import Customer, Township, Region, Order # Adjust import path if needed
 
 # --- Serializers for RESPONSE (Output) ---
 
@@ -9,15 +9,20 @@ class CustomerListSerializer(serializers.ModelSerializer):
     # Optionally include related object names instead of just IDs
     township_name = serializers.CharField(source='township.name', read_only=True)
     region_name = serializers.CharField(source='region.name', read_only=True)
-
+    last_order_date = serializers.SerializerMethodField()
     class Meta:
         model = Customer
         fields = [
-            'id', 'username', 'first_name', 'last_name', 'email',
-            'township', 'township_name', 'region_name',
-            'is_active', 'date_joined', 'is_staff', 'is_superuser'
+            'id', 'username', 'first_name', 'last_name', 'email', 'address', 
+            'township', 'township_name', 'region_name', 'phoneNo',
+            'is_active', 'date_joined', 'is_staff', 'is_superuser', 'last_order_date'
         ]
-        # 'date_joined' is from AbstractUser
+        
+    def get_last_order_date(self, obj):
+        order = Order.objects.filter(user = obj).order_by('-created_at').last()
+        if order:
+            return order.created_at
+        return None
 
 class CustomerDetailSerializer(serializers.ModelSerializer):
     """Serializer for detailed Customer view."""

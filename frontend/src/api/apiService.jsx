@@ -55,6 +55,14 @@ export const addCategory = (data) => {
   return postRequest("categories/", data);
 };
 
+export const getCategory = () => {
+  return getRequest("categories/");
+}
+
+export const deleteCategory = (id) => {
+  return deleteRequest(`categories/${id}/`);
+}
+
 export const retrieveMe = () => {
   return getRequest("user/me/");
 };
