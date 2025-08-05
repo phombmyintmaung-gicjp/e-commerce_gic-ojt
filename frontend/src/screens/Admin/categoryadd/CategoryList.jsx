@@ -129,8 +129,10 @@ const CategoryList = () => {
                 <td className="p-3 border">{category.created_at.split("T")[0]}</td>
                 <td className="p-3 border space-x-2 flex items-center">
                   <Link
-                    to={`/admin/categories/${category.id}/`}
-                    className="text-blue-600 hover:underline">
+                    to={`/admin/categories/${category.id}/edit`}
+                    className="text-blue-600 hover:underline"
+                    state={category}
+                  >
                     <img
                       src={EditIcon}
                       alt="Edit"

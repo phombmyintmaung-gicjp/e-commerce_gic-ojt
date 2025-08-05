@@ -69,6 +69,13 @@ const productAdd = () => {
     const [isActiveOn, setIsActiveOn] = useState(false);
     const [isDiscountOn, setIsDiscountOn] = useState(false);
 
+    const [name, setName] = useState('')
+    const [category, setCategory] = useState('')
+    const [description, setDescription] = useState('')
+    const [price, setPrice] = useState(0.0)
+    const [active, setActive] = useState(false)
+
+
     const handleToggle = (e) => {
         // optional: e.preventDefault(); if inside a form
         e.preventDefault();

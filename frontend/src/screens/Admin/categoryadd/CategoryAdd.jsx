@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { addCategory, updateCategory, getCategoryById } from "../../../api/apiService";
 
 const CategoryForm = () => {
@@ -10,22 +10,15 @@ const CategoryForm = () => {
     const [title, setTitle] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
-
+    const location = useLocation()
+    
     useEffect(() => {
-        if (isEdit) {
-            // Fetch existing category to prefill the form
-            const fetchCategory = async () => {
-                try {
-                    const response = await getCategoryById(id); // You'll need this API
-                    setTitle(response.data.title);
-                } catch (error) {
-                    setError("Failed to load category.");
-                    console.error(error);
-                }
-            };
-            fetchCategory();
+        if (isEdit && location.state) {
+            const category = location.state;
+            console.log(category);  // You should see the full category object
+            setTitle(category.title);  // Set the title if it exists
         }
-    }, [id]);
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
