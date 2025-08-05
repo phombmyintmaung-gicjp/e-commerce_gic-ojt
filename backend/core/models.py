@@ -414,7 +414,7 @@ class Payment(models.Model):
     created_by = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='created_payments', null=True, blank=True)
     updated_by = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='updated_payments', null=True, blank=True)
     def __str__(self):
-        return f"Payment for Order {self.order.id} - {self.status}"
+        return f"Payment for Order {self.order.id}"
     class Meta:
         verbose_name = "Payment"
         verbose_name_plural = "Payments"

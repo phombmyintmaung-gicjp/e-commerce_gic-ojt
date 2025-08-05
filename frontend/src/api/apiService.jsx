@@ -20,7 +20,7 @@ export const logoutUser = () => {
 };
 
 export function createUser(data) {
-  return postRequest("user/create/", data);
+  return postRequest("customers/", data);
 }
 
 // Items
