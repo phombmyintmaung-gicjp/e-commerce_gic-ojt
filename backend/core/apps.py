@@ -64,9 +64,9 @@ class CoreConfig(AppConfig):
             return
 
         seen = set()
-        with open(csv_path, newline='', encoding='utf-8-sig') as f:  # ✅ fixed here
+        with open(csv_path, newline='', encoding='utf-8-sig') as f:  
             reader = csv.DictReader(f)
-            print(f"CSV headers: {reader.fieldnames}")  # ✅ debug print (can remove later)
+            print(f"CSV headers: {reader.fieldnames}") 
 
             for row in reader:
                 region_name = row['Region'].strip()
