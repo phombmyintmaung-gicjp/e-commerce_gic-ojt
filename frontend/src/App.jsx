@@ -30,8 +30,12 @@ import ProductList from "./screens/Admin/product/ProductList";
 import InventoryEdit from "./screens/Admin/Inventory/InventoryEdit";
 import InventoryList from "./screens/Admin/Inventory/InventoryList";
 import ProtectedAdminRoute from "./utils/auth";
-
-
+import Setting from "./screens/Admin/setting/Setting";
+import Profile from "./screens/User/profile/Profile";
+import ProfileMainContent from "./screens/User/profile/Profile";
+import MyOrders from "./components/UserProfile/MyOrders";
+import MyAddress from "./components/UserProfile/MyAddress";
+import MyInfo from "./components/UserProfile/MyInfo";
 
 function App() {
   const location = useLocation();
@@ -166,6 +170,14 @@ function App() {
             </ProtectedAdminRoute>
           }
         />
+        <Route
+          path="admin/setting"
+          element={
+            <AdminMainContent>
+              <Setting />
+            </AdminMainContent>
+          }
+        />
 
         {/* user routes */}
         <Route path="/" element={<Home />} />
@@ -178,8 +190,14 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/users/profile" element={<Profile />}>
+          <Route index element={<MyOrders />} />
+          <Route path="orders" element={<MyOrders />} />
+          <Route path="address" element={<MyAddress />} />
+          <Route path="account" element={<MyInfo />} />
+        </Route>
       </Routes>
-      {!isAuthPage && !isAdminPage && <Footer />}
+      {!isAuthPage && !isAdminPage && !location.pathname.startsWith("/users/profile") && <Footer />}
     </>
   );
 }
