@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "aos": "^2.3.4",
+    "axios": "^1.11.0",
     "framer-motion": "^12.23.11",
+    "jwt-decode": "^4.0.0",
     "react-router-dom": "^7.7.1",
     "recharts": "^3.1.0",
     "swiper": "^11.2.10"

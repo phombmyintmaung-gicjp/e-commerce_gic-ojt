@@ -47,3 +47,11 @@ export function deleteItem(id) {
 export const chatBotMessage = (message) => {
   return postRequest("chatbot/", { message });
 };
+
+export const addCategory = (data) => {
+  return postRequest("categories/", data);
+}
+
+export const retrieveMe = () => {
+  return getRequest("user/me/");
+}

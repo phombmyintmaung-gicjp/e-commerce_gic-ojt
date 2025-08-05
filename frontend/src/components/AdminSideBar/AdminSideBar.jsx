@@ -18,6 +18,7 @@ import AddInventoryIcon from "../../assets/add_inventory_icon.svg";
 import InventoryListIcon from "../../assets/list_icon.svg";
 import OrdersListIcon from "../../assets/list_icon.svg";
 import ConfirmModal from "../ConfirmModal";
+import { logoutUser } from "../../api/apiService";
 
 const menuItems = [
   {
@@ -105,7 +106,8 @@ const AdminSideBar = () => {
 
   const handleLogoutConfirm = () => {
     setShowLogoutModal(false);
-    // TODO: Add actual logout logic here, e.g., clear tokens, auth state
+    logoutUser();
+    window.location.href = "/login";
     console.log("Logged out!");
     // navigate("/login"); // redirect to login page after logout
   };
@@ -117,9 +119,8 @@ const AdminSideBar = () => {
   return (
     <>
       <div
-        className={`fixed top-24 left-0 z-40 bg-[var(--color-section)] transition-all duration-300 border-r border-[var(--color-light-gray)] ${
-          expanded ? "w-64" : "w-16"
-        } h-[calc(100vh-6rem)] overflow-y-auto`}>
+        className={`fixed top-24 left-0 z-40 bg-[var(--color-section)] transition-all duration-300 border-r border-[var(--color-light-gray)] ${expanded ? "w-64" : "w-16"
+          } h-[calc(100vh-6rem)] overflow-y-auto`}>
         <div className="flex flex-col h-full">
           <NavLink
             to="/admin/dashboard"
@@ -140,11 +141,10 @@ const AdminSideBar = () => {
                   <button
                     title={!expanded ? item.label : ""}
                     onClick={() => toggleMenu(item.label)}
-                    className={`flex items-center w-full px-4 py-4 hover:opacity-90 hover:bg-[var(--color-highlight)] text-[var(--color-black)] ${
-                      isAnySubmenuActive
+                    className={`flex items-center w-full px-4 py-4 hover:opacity-90 hover:bg-[var(--color-highlight)] text-[var(--color-black)] ${isAnySubmenuActive
                         ? "bg-[var(--color-highlight)] font-semibold"
                         : "bg-[var(--color-section)]"
-                    }`}>
+                      }`}>
                     <img src={item.icon} alt="" className="w-6 h-6" />
                     {expanded && <span className="ml-4">{item.label}</span>}
                   </button>
@@ -155,11 +155,10 @@ const AdminSideBar = () => {
                         <li key={subIdx}>
                           <NavLink
                             to={sub.path}
-                            className={`flex items-center gap-2 p-3 rounded hover:bg-[var(--color-highlight)] ${
-                              location.pathname === sub.path
+                            className={`flex items-center gap-2 p-3 rounded hover:bg-[var(--color-highlight)] ${location.pathname === sub.path
                                 ? "bg-[var(--color-highlight)] font-semibold"
                                 : ""
-                            }`}>
+                              }`}>
                             <img src={sub.icon} alt="" className="w-4 h-4" />
                             <span>{sub.label}</span>
                           </NavLink>
