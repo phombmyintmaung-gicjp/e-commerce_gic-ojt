@@ -1,49 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import EditIcon from "../../../assets/edit_icon.svg";
 import DeleteIcon from "../../../assets/delete_icon.svg";
-
-const mockCategories = [
-  {
-    id: 1,
-    name: "Men Wear",
-    creationDate: "2025-07-29"
-  },
-  {
-    id: 2,
-    name: "Girl Wear",
-    creationDate: "2025-07-20"
-  },
-  {
-    id: 3,
-    name: "Shoes",
-    email: "charlie@example.com",
-    creationDate: "2025-07-25",
-  },
-  {
-    id: 4,
-    name: "Watches",
-    email: "david@example.com",
-    creationDate: "2025-07-18",
-  },
-  {
-    id: 5,
-    name: "Accessories",
-    creationDate: "2025-07-28"
-  },
-  {
-    id: 6,
-    name: "Baby Wear",
-    email: "frank@example.com",
-    creationDate: "2025-07-27",
-  }
-];
+import { deleteCategory, getCategory } from "../../../api/apiService";
+import ConfirmModal from "../../../components/ConfirmModal";
 
 const CategoryList = () => {
   const [search, setSearch] = useState("");
   const [sortType, setSortType] = useState(""); // "name" | "date"
   const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 5;
+  const categoriesPerPage = 5;
+
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+
+    getCategories()
+
+  }, [])
+
+  const getCategories = async (e) => {
+    setIsLoading(true);
+    try {
+
+      const response = await getCategory()
+      setCategories(response.data)
+
+    } catch (error) {
+      setError("error");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
 
   const goToPage = (page) => {
     if (page >= 1 && page <= totalPages) {
@@ -51,19 +43,42 @@ const CategoryList = () => {
     }
   };
 
-  const filteredCategories = mockCategories
-    .filter((category) => category.name.toLowerCase().includes(search.toLowerCase()))
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [categoryToDelete, setCategoryToDelete] = useState(null);
+
+  const openDeleteModal = (category) => {
+    setCategoryToDelete(category);
+    setShowDeleteModal(true);
+  };
+  const closeDeleteModal = () => {
+    setCategoryToDelete(null);
+    setShowDeleteModal(false);
+  };
+  const handleDelete = async () => {
+    if (categoryToDelete) {
+
+      await deleteCategory(categoryToDelete.id)
+      setCategories((prev) =>
+        prev.filter((category) => category.id !== categoryToDelete.id)
+      );
+      closeDeleteModal();
+    }
+  };
+
+
+  const filteredCategories = categories
+    .filter((category) => category.title.toLowerCase().includes(search.toLowerCase()))
     .sort((a, b) => {
-      if (sortType === "name") return a.name.localeCompare(b.name);
+      if (sortType === "title") return a.title.localeCompare(b.title);
       if (sortType === "date")
-        return new Date(b.creationDate) - new Date(a.creationDate);
+        return new Date(b.created_at) - new Date(a.created_at);
       return 0;
     });
 
-  const totalPages = Math.ceil(filteredCategories.length / usersPerPage);
+  const totalPages = Math.ceil(filteredCategories.length / categoriesPerPage);
   const paginateCategory = filteredCategories.slice(
-    (currentPage - 1) * usersPerPage,
-    currentPage * usersPerPage
+    (currentPage - 1) * categoriesPerPage,
+    currentPage * categoriesPerPage
   );
 
   return (
@@ -85,9 +100,10 @@ const CategoryList = () => {
           <option value="name">Name (A-Z)</option>
           <option value="date">Order Date (Latest)</option>
         </select>
-        <button className="bg-[var(--color-green)] text-white px-4 py-2 rounded hover:bg-blue-700">
+
+        <Link className="bg-[var(--color-green)] text-white px-4 py-2 rounded hover:opacity-90" to="/admin/categories/add">
           Add Category
-        </button>
+        </Link>
       </div>
 
       {/* User Table */}
@@ -107,13 +123,13 @@ const CategoryList = () => {
                 key={category.id}
                 className="odd:bg-[var(--color-white)] even:bg-[var(--color-section)] hover:opacity-60">
                 <td className="p-3 border">
-                  {(currentPage - 1) * usersPerPage + index + 1}
+                  {(currentPage - 1) * categoriesPerPage + index + 1}
                 </td>
-                <td className="p-3 border">{category.name}</td>
-                <td className="p-3 border">{category.creationDate}</td>
+                <td className="p-3 border">{category.title}</td>
+                <td className="p-3 border">{category.created_at.split("T")[0]}</td>
                 <td className="p-3 border space-x-2 flex items-center">
                   <Link
-                    to={`/admin/users/${category.id}/edit`}
+                    to={`/admin/categories/${category.id}/`}
                     className="text-blue-600 hover:underline">
                     <img
                       src={EditIcon}
@@ -121,7 +137,7 @@ const CategoryList = () => {
                       className="w-6 h-6 transition hover:opacity-90"
                     />
                   </Link>
-                  <Link className="text-[var(--color-warning)] hover:underline">
+                  <Link className="text-[var(--color-warning)] hover:underline" onClick={() => openDeleteModal(category)}>
                     <img
                       src={DeleteIcon}
                       alt="Delete"
@@ -134,7 +150,7 @@ const CategoryList = () => {
             {paginateCategory.length === 0 && (
               <tr>
                 <td colSpan="5" className="p-3 text-center text-gray-500">
-                  No users found.
+                  No Category found.
                 </td>
               </tr>
             )}
@@ -168,6 +184,13 @@ const CategoryList = () => {
           {">"}
         </button>
       </div>
+      <ConfirmModal
+        show={showDeleteModal}
+        title="Confirm Delete"
+        message="Are you sure you want to delete?"
+        onConfirm={handleDelete}
+        onCancel={closeDeleteModal}
+      />
     </section>
   );
 };
