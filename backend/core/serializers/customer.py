@@ -15,7 +15,7 @@ class CustomerListSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'username', 'first_name', 'last_name', 'email',
             'township', 'township_name', 'region_name',
-            'is_active', 'date_joined'
+            'is_active', 'date_joined', 'is_staff', 'is_superuser'
         ]
         # 'date_joined' is from AbstractUser
 
