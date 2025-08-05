@@ -1,14 +1,22 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const UserEdit = () => {
+  const location = useLocation();
+  const user = location.state?.user;
+
+  if (!user) {
+    return <div>User data not found. Redirect or fetch from API...</div>;
+  }
+
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phno: "",
-    address: "",
-    township: "",
-    region: "",
-    role: "user",
+    name: user.username || "",
+    email: user.email || "",
+    phno: user.phoneNo || "",
+    address: user.address || "No Data",
+    township: user.township || "",
+    region: user.region || "",
+    role: user.is_staff ? "staff" : "customer",
   });
 
   const townships = ["Hlaing", "Kamayut", "Sanchaung", "Tamwe"];
@@ -21,8 +29,12 @@ const UserEdit = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Saving user:", formData);
-    // send to backend
+    const updatedUser = {
+      ...formData,
+      is_staff: formData.role === "staff",
+    };
+    console.log("Saving user:", updatedUser);
+    // TODO: send updatedUser to backend API here
   };
 
   return (
@@ -87,7 +99,8 @@ const UserEdit = () => {
             name="region"
             value={formData.region}
             onChange={handleChange}
-            className="w-full border px-3 py-2 rounded">
+            className="w-full border px-3 py-2 rounded"
+          >
             <option value="">Select Region</option>
             {regions.map((r) => (
               <option key={r} value={r}>
@@ -104,7 +117,8 @@ const UserEdit = () => {
             name="township"
             value={formData.township}
             onChange={handleChange}
-            className="w-full border px-3 py-2 rounded">
+            className="w-full border px-3 py-2 rounded"
+          >
             <option value="">Select Township</option>
             {townships.map((t) => (
               <option key={t} value={t}>
@@ -121,9 +135,10 @@ const UserEdit = () => {
             name="role"
             value={formData.role}
             onChange={handleChange}
-            className="w-full border px-3 py-2 rounded">
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
+            className="w-full border px-3 py-2 rounded"
+          >
+            <option value="staff">Staff</option>
+            <option value="customer">Customer</option>
           </select>
         </div>
 
@@ -131,7 +146,8 @@ const UserEdit = () => {
         <div className="pt-4 text-right">
           <button
             type="submit"
-            className="bg-[var(--color-green)] text-white px-6 py-2 rounded-xl hover:opacity-80">
+            className="bg-[var(--color-green)] text-white px-6 py-2 rounded-xl hover:opacity-80"
+          >
             Save
           </button>
         </div>

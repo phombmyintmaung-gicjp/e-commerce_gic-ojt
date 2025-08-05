@@ -1,44 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import EditIcon from "../../../assets/edit_icon.svg";
 import DeleteIcon from "../../../assets/delete_icon.svg";
 import ConfirmModal from "../../../components/ConfirmModal";
 import Pagination from "../../../components/Pagination";
-
-const mockUsers = [
-  {
-    id: 1,
-    name: "Alice",
-    email: "alice@example.com",
-    lastOrderDate: "2025-07-29",
-  },
-  { id: 2, name: "Bob", email: "bob@example.com", lastOrderDate: "2025-07-20" },
-  {
-    id: 3,
-    name: "Charlie",
-    email: "charlie@example.com",
-    lastOrderDate: "2025-07-25",
-  },
-  {
-    id: 4,
-    name: "David",
-    email: "david@example.com",
-    lastOrderDate: "2025-07-18",
-  },
-  { id: 5, name: "Eva", email: "eva@example.com", lastOrderDate: "2025-07-28" },
-  {
-    id: 6,
-    name: "Frank",
-    email: "frank@example.com",
-    lastOrderDate: "2025-07-27",
-  },
-  {
-    id: 7,
-    name: "Grace",
-    email: "grace@example.com",
-    lastOrderDate: "2025-07-30",
-  },
-];
+import { getUsers } from "../../../api/apiService";
 
 const UsersList = () => {
   const [search, setSearch] = useState("");
@@ -47,6 +13,9 @@ const UsersList = () => {
   const usersPerPage = 5;
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  console.log(users);
 
   const openDeleteModal = (user) => {
     setUserToDelete(user);
@@ -60,9 +29,6 @@ const UsersList = () => {
     if (userToDelete) {
       // You can call your delete API or logic here
       console.log("Deleting user:", userToDelete);
-
-      // For demo, just close modal and filter out user
-      // In real app, update your data source properly
       // e.g. setUsers(users.filter(u => u.id !== userToDelete.id));
       closeDeleteModal();
     }
@@ -72,13 +38,31 @@ const UsersList = () => {
       setCurrentPage(page);
     }
   };
+  const getUsersList = async () => {
+    setLoading(true);
+    try {
+      const response = await getUsers();
+      const allUsers = response.data;
+      const nonSuperUsers = allUsers.filter((user) => !user.is_superuser); // 👈 exclude superusers
+      setUsers(nonSuperUsers);
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    getUsersList();
+  }, []);
 
-  const filteredUsers = mockUsers
-    .filter((user) => user.name.toLowerCase().includes(search.toLowerCase()))
+  const filteredUsers = users
+    .filter((user) =>
+      user.username.toLowerCase().includes(search.toLowerCase())
+    )
     .sort((a, b) => {
-      if (sortType === "name") return a.name.localeCompare(b.name);
+      if (sortType === "name") return a.username.localeCompare(b.username);
       if (sortType === "date")
-        return new Date(b.lastOrderDate) - new Date(a.lastOrderDate);
+        return new Date(b.lastOrderDate || 0) - new Date(a.lastOrderDate || 0);
       return 0;
     });
 
@@ -131,12 +115,13 @@ const UsersList = () => {
                 <td className="p-3 border">
                   {(currentPage - 1) * usersPerPage + index + 1}
                 </td>
-                <td className="p-3 border">{user.name}</td>
+                <td className="p-3 border">{user.username}</td>
                 <td className="p-3 border">{user.email}</td>
-                <td className="p-3 border">{user.lastOrderDate}</td>
+                <td className="p-3 border">{user?.last_order_date}</td>
                 <td className="p-3 border space-x-2 flex items-center">
                   <Link
                     to={`/admin/users/${user.id}/edit`}
+                    state={{ user }}
                     className="text-blue-600 hover:underline">
                     <img
                       src={EditIcon}
@@ -175,11 +160,11 @@ const UsersList = () => {
       />
       {/* Confirm Delete Modal */}
       <ConfirmModal
-      show={showDeleteModal}
-      title="Delete User" message=
-      {`Are you sure you want to delete user "${userToDelete?.name}"?`}
-      onConfirm={handleDelete}
-      onCancel={closeDeleteModal}
+        show={showDeleteModal}
+        title="Delete User"
+        message={`Are you sure you want to delete user "${userToDelete?.name}"?`}
+        onConfirm={handleDelete}
+        onCancel={closeDeleteModal}
       />
     </section>
   );

@@ -47,6 +47,7 @@ const orderTableData = [
 ];
 
 const AdminDashboard = () => {
+  const [loading, setLoading] = useState(false);
   const [noOfCustomers, setNoOfCustomer] = useState(0);
   const summaryData = [
     { title: "Total Orders", value: 1200, bgColor: "bg-[var(--color-green)]" },
@@ -62,24 +63,32 @@ const AdminDashboard = () => {
     },
   ];
   const getCustomers = async () => {
+    setLoading(true);
     try {
-      const response = await getUsers(); // Assuming response.data is an array
+      const response = await getUsers();
       const users = response.data;
-      // Count only non-admin users (optional)
       const customerCount = users.filter(
         (user) => !user.is_staff && !user.is_superuser
       ).length;
       setNoOfCustomer(customerCount);
     } catch (error) {
       console.error("Failed to fetch users:", error);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
     getCustomers();
   }, []);
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <p className="text-lg font-semibold">Loading dashboard data...</p>
+      </div>
+    );
+  }
   return (
     <section>
-      {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8 px-36">
         {summaryData.map((item, index) => (
           <div
