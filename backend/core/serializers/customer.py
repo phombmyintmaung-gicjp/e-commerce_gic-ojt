@@ -48,7 +48,7 @@ class CustomerCreateSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(write_only=True, required=True) # For confirmation
     
     # Accept Township and Region IDs during creation
-    township = serializers.PrimaryKeyRelatedField(queryset=Township.objects.all(), required=True)
+    township = serializers.PrimaryKeyRelatedField(queryset=Township.objects.all(), required=False)
 
     class Meta:
         model = Customer
