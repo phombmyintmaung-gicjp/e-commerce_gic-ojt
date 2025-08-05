@@ -15,14 +15,17 @@ export function refreshToken(data) {
 }
 
 export const logoutUser = () => {
-  localStorage.removeItem('access_token');
-  localStorage.removeItem('user');
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("user");
 };
 
 export function createUser(data) {
   return postRequest("customers/", data);
 }
 
+export function getUsers() {
+  return getRequest("customers/");
+}
 // Items
 export function getProducts() {
   return getRequest("products/");
@@ -50,8 +53,8 @@ export const chatBotMessage = (message) => {
 
 export const addCategory = (data) => {
   return postRequest("categories/", data);
-}
+};
 
 export const retrieveMe = () => {
   return getRequest("user/me/");
-}
+};
