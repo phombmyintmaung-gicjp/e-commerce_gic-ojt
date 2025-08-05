@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -8,12 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
-const summaryData = [
-  { title: "Total Orders", value: 1200, bgColor: "bg-[var(--color-green)]" },
-  { title: "Total Purchases", value: 780, bgColor: "bg-[var(--color-highlight)]" },
-  { title: "Total Users", value: 350, bgColor: "bg-[var(--color-warning)]" },
-];
+import { getUsers } from "../../../api/apiService";
 
 const monthlyOrders = [
   { month: "Jan", orders: 100 },
@@ -52,8 +47,38 @@ const orderTableData = [
 ];
 
 const AdminDashboard = () => {
+  const [noOfCustomers, setNoOfCustomer] = useState(0);
+  const summaryData = [
+    { title: "Total Orders", value: 1200, bgColor: "bg-[var(--color-green)]" },
+    {
+      title: "Total Purchases",
+      value: 780,
+      bgColor: "bg-[var(--color-highlight)]",
+    },
+    {
+      title: "Total Users",
+      value: noOfCustomers,
+      bgColor: "bg-[var(--color-warning)]",
+    },
+  ];
+  const getCustomers = async () => {
+    try {
+      const response = await getUsers(); // Assuming response.data is an array
+      const users = response.data;
+      // Count only non-admin users (optional)
+      const customerCount = users.filter(
+        (user) => !user.is_staff && !user.is_superuser
+      ).length;
+      setNoOfCustomer(customerCount);
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+    }
+  };
+  useEffect(() => {
+    getCustomers();
+  }, []);
   return (
-    <section >
+    <section>
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8 px-36">
         {summaryData.map((item, index) => (
