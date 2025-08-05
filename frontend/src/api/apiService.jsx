@@ -59,6 +59,14 @@ export const getCategory = () => {
   return getRequest("categories/");
 }
 
+export const getCategoryById = (id) => {
+  return getRequest(`categories/${id}/`);
+}
+
+export const updateCategory = (id, data) => {
+  return putRequest(`categories/${id}/`, data);
+}
+
 export const deleteCategory = (id) => {
   return deleteRequest(`categories/${id}/`);
 }

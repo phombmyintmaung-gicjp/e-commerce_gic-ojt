@@ -91,6 +91,17 @@ function App() {
           }
         />
         <Route
+          path="/admin/categories/:id/edit"
+          element={
+            <ProtectedAdminRoute>
+              <AdminMainContent>
+                <CategoryAdd />
+              </AdminMainContent>
+            </ProtectedAdminRoute>
+          }
+        />
+
+        <Route
           path="/admin/products/add"
           element={
             <ProtectedAdminRoute>
