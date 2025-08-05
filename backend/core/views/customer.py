@@ -8,7 +8,7 @@ from django.contrib.auth import update_session_auth_hash # For password change
 from ..models import Customer, Township, Region
 from ..serializers import (
     CustomerListSerializer, CustomerDetailSerializer,
-    CustomerCreateSerializer, CustomerUpdateSerializer, ChangePasswordSerializer    
+    CustomerCreateSerializer, CustomerUpdateSerializer, ChangePasswordSerializer
 )
 
 
@@ -93,4 +93,16 @@ class CustomerViewSet(viewsets.ModelViewSet):
             # Update session hash to prevent logout after password change
             update_session_auth_hash(request, user)
             return Response({'message': 'Password updated successfully'}, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+
+
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from ..serializers import UserMeSerializer
+
+class UserMeViewSet(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        serializer = UserMeSerializer(request.user)
+        return Response(serializer.data)

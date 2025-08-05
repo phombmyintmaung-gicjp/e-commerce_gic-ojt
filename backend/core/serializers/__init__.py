@@ -1,5 +1,5 @@
 
-from .customer import CustomerListSerializer, CustomerDetailSerializer, CustomerCreateSerializer, CustomerUpdateSerializer, ChangePasswordSerializer
+from .customer import UserMeSerializer, CustomerListSerializer, CustomerDetailSerializer, CustomerCreateSerializer, CustomerUpdateSerializer, ChangePasswordSerializer
 from .category import CategoryListSerializer, CategoryCreateSerializer, CategoryUpdateSerializer
 from .product import ProductInventorySerializer, ProductListSerializer, ProductCreateSerializer, ProductUpdateSerializer
 from .product_variant import ProductVariantsListSerializer, ProductVariantCreateSerializer, ProductVariantUpdateSerializer
@@ -14,6 +14,7 @@ from .payment_method import PaymentMethodListSerializer, PaymentMethodCreateSeri
 from .payment import PaymentListSerializer, PaymentCreateSerializer
 from .shippingfee import ShippingFeeListSerializer, ShippingFeeCreateSerializer, ShippingFeeUpdateSerializer
 __all__ = [
+    'UserMeSerializer',
     'CustomerListSerializer',
     'CustomerDetailSerializer',
     'CustomerCreateSerializer',

@@ -16,7 +16,8 @@ from .views import (
     ReviewViewSet,
     PaymentMethodViewSet,
     PaymentViewSet,
-    ShippingFeeViewSet
+    ShippingFeeViewSet, 
+    UserMeViewSet
 )
 router = routers.DefaultRouter()
 
@@ -45,5 +46,7 @@ urlpatterns = [
          ProductInventoryViewSet.as_view({'get': 'list'})),
     path('api/productInventory/<int:product_pk>/', 
          ProductInventoryViewSet.as_view({'get': 'retrieve'})),
-    path('api/auth/login-basic/', views.basic_auth_login_view, name='api_login_basic'),
+    path('api/auth/login-basic/', views.basic_auth_login_view, name='api_login_basic'),    
+    path('api/user/me/', UserMeViewSet.as_view(), name='user-me'),
+
 ]

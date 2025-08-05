@@ -132,3 +132,8 @@ class ChangePasswordSerializer(serializers.Serializer):
         # except Exception:
         #     pass # Handle token blacklisting errors if necessary
         return user
+
+class UserMeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = ['id', 'username', 'email', 'is_staff', 'is_superuser']

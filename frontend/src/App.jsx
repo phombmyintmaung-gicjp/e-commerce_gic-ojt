@@ -29,6 +29,7 @@ import ProductVariantAdd from "./screens/Admin/product/ProductVariantAdd";
 import ProductList from "./screens/Admin/product/ProductList";
 import InventoryEdit from "./screens/Admin/Inventory/InventoryEdit";
 import InventoryList from "./screens/Admin/Inventory/InventoryList";
+import ProtectedAdminRoute from "./utils/auth";
 
 
 
@@ -50,17 +51,21 @@ function App() {
         <Route
           path="/admin/dashboard"
           element={
-            <AdminMainContent>
-              <AdminDashboard />
-            </AdminMainContent>
+            <ProtectedAdminRoute>
+              <AdminMainContent>
+                <AdminDashboard />
+              </AdminMainContent>
+            </ProtectedAdminRoute>
           }
         />
         <Route
           path="/admin/users"
           element={
-            <AdminMainContent>
-              <UsersList />
-            </AdminMainContent>
+            <ProtectedAdminRoute>
+              <AdminMainContent>
+                <UsersList />
+              </AdminMainContent>
+            </ProtectedAdminRoute>
           }
         />
         <Route
@@ -74,73 +79,91 @@ function App() {
         <Route
           path="/admin/categories"
           element={
-            <AdminMainContent>
-              <CategoryList />
-            </AdminMainContent>
+            <ProtectedAdminRoute>
+              <AdminMainContent>
+                <CategoryList />
+              </AdminMainContent>
+            </ProtectedAdminRoute>
           }
         />
         <Route
           path="/admin/products/add"
           element={
-            <AdminMainContent>
-              <ProductAdd />
-            </AdminMainContent>
+            <ProtectedAdminRoute>
+              <AdminMainContent>
+                <ProductAdd />
+              </AdminMainContent>
+            </ProtectedAdminRoute>
           }
         />
         <Route
           path="/admin/products"
           element={
-            <AdminMainContent>
-              <ProductList />
-            </AdminMainContent>
+            <ProtectedAdminRoute>
+              <AdminMainContent>
+                <ProductList />
+              </AdminMainContent>
+            </ProtectedAdminRoute>
           }
         />
         <Route
           path="/admin/products/variants/add"
           element={
-            <AdminMainContent>
-              <ProductVariantAdd />
-            </AdminMainContent>
+            <ProtectedAdminRoute>
+              <AdminMainContent>
+                <ProductVariantAdd />
+              </AdminMainContent>
+            </ProtectedAdminRoute>
           }
         />
         <Route
           path="admin/users/:id/edit"
           element={
-            <AdminMainContent>
-              <UserEdit />
-            </AdminMainContent>
+            <ProtectedAdminRoute>
+              <AdminMainContent>
+                <UserEdit />
+              </AdminMainContent>
+            </ProtectedAdminRoute>
           }
         />
         <Route
           path="admin/orders"
           element={
-            <AdminMainContent>
-              <OrdersList />
-            </AdminMainContent>
+            <ProtectedAdminRoute>
+              <AdminMainContent>
+                <OrdersList />
+              </AdminMainContent>
+            </ProtectedAdminRoute>
           }
         />
         <Route
           path="admin/orders/:id/edit"
           element={
-            <AdminMainContent>
-              <OrderEdit />
-            </AdminMainContent>
+            <ProtectedAdminRoute>
+              <AdminMainContent>
+                <OrderEdit />
+              </AdminMainContent>
+            </ProtectedAdminRoute>
           }
         />
-         <Route
+        <Route
           path="admin/inventory"
           element={
-            <AdminMainContent>
-              <InventoryList />
-            </AdminMainContent>
+            <ProtectedAdminRoute>
+              <AdminMainContent>
+                <InventoryList />
+              </AdminMainContent>
+            </ProtectedAdminRoute>
           }
         />
         <Route
           path="admin/inventory/:id/edit"
           element={
-            <AdminMainContent>
-              <InventoryEdit />
-            </AdminMainContent>
+            <ProtectedAdminRoute>
+              <AdminMainContent>
+                <InventoryEdit />
+              </AdminMainContent>
+            </ProtectedAdminRoute>
           }
         />
 

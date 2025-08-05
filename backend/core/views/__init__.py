@@ -1,4 +1,4 @@
-from .customer import CustomerViewSet
+from .customer import CustomerViewSet, UserMeViewSet
 from .category import CategoryViewSet
 from .product import ProductViewSet, ProductInventoryViewSet
 from .product_variant import ProductVariantViewSet
@@ -13,6 +13,7 @@ from .payment_method import PaymentMethodViewSet
 from .payment import PaymentViewSet
 from .shippingfee import ShippingFeeViewSet
 __all__ = [
+    'UserMeViewSet',
     'CustomerViewSet',
     'CategoryViewSet',
     'ProductViewSet',
