@@ -3,6 +3,7 @@ import {
   getRegionsList,
   getTownshipsList,
   getUsers,
+  updateUserInfo,
 } from "../../api/apiService";
 import { useOutletContext } from "react-router-dom";
 
@@ -29,6 +30,7 @@ const MyAddress = () => {
   const getUserAddress = async () => {
     try {
       const response = await getUsers();
+      console.log("api response", response.data);
       setStreet(response.data?.address ?? "No Data");
       setWard(response.data?.township ?? "No Data");
       setTownship(response.data?.township ?? "No Township is selected:");
@@ -59,8 +61,21 @@ const MyAddress = () => {
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    if (!user || !user.id) return;
     console.log({ street, ward, township, region });
+    const data = {
+      address: `${street}, ${ward}`,
+      township: township,
+      // region: region,
+    };
+    console.log("data", data);
+    try {
+      await updateUserInfo(user.id, data);
+      alert("Address updated successfully!");
+    } catch (error) {
+      console.error("Failed to update :", error);
+    }
   };
 
   const handleCancel = () => {
