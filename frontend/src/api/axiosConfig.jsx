@@ -17,6 +17,13 @@ axiosInstance.interceptors.request.use(
     } else {
       console.warn("⚠️ No access token found");
     }
+
+    if (config.data instanceof FormData) {
+      delete config.headers["Content-Type"];
+    } else {
+      config.headers["Content-Type"] = "application/json";
+    }
+
     return config;
   },
   (error) => Promise.reject(error)
@@ -25,8 +32,9 @@ axiosInstance.interceptors.request.use(
 // Response Interceptor: refresh on 401
 axiosInstance.interceptors.response.use(
   (response) => response,
-  async (error) => {
+  async (error) => {    
     const originalRequest = error.config;
+    alert(originalRequest._retry);
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;

@@ -26,12 +26,13 @@ class ProductListSerializer(serializers.ModelSerializer):
     
 class ProductCreateSerializer(serializers.ModelSerializer):
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
-    
+    image = serializers.ImageField(required=False)
     class Meta:
         model = Product
         fields = '__all__'
 
     def create(self, validated_data):
+        print(validated_data)
         request = self.context.get('request')
         if request:
             user = request.user
