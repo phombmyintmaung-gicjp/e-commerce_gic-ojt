@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import camera_icon from "../../../assets/camera.svg";
 import plus_icon from "../../../assets/plus_icon.svg";
+import { getCategory } from '../../../api/apiService';
 
 const mockCategories = [
     {
@@ -65,21 +66,48 @@ const mockVariants = [
 ];
 
 const productAdd = () => {
+    const [categoriesList, setCategoriesList] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState('')
+    useEffect(() => {
+
+        getCategories()
+
+    }, [])
+
+    const getCategories = async (e) => {
+        setIsLoading(true);
+        try {
+            const response = await getCategory()
+            setCategoriesList(response.data)
+
+        } catch (error) {
+            setError("error");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     const [selectedValue, setSelectedValue] = useState('');
     const [isActiveOn, setIsActiveOn] = useState(false);
     const [isDiscountOn, setIsDiscountOn] = useState(false);
 
-    const [name, setName] = useState('')
-    const [category, setCategory] = useState('')
+    const [title, setTitle] = useState('')
+    const [selectedCategory, setSelectedCategory] = useState(0)
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState(0.0)
     const [active, setActive] = useState(false)
+    const [discount, setDiscount] = useState(false)
+    const [discountPercentage, setDiscountPercentage] = useState(0)
+    const [discountStart, setDiscountStart] = useState('')
+    const [discountEnd, setDiscountEnd] = useState('')
+    const [productPhoto, setProductPhoto] = useState('')
+    const [attribute, setAttribute] = useState({})
 
 
     const handleToggle = (e) => {
-        // optional: e.preventDefault(); if inside a form
         e.preventDefault();
-        setIsActiveOn(!isActiveOn);
+        setActive(!active);
     };
 
     const handleDiscountToggle = (e) => {
@@ -95,37 +123,51 @@ const productAdd = () => {
                 <div className='mx-4 my-2 flex flex-col col'>
                     <div className='text-left'>
                         <p className='text-[14px] text-left'>Name</p>
-                        <input type="text" className='text-[14px] my-2 border px-3 py-2 rounded w-64 d-flex text-left h-[42px] w-[400px]' value="" placeholder='Enter Name' />
+                        <input type="text"
+                            className='text-[14px] my-2 border px-3 py-2 rounded w-64 d-flex text-left h-[42px] w-[400px]'
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            placeholder='Enter Name' />
                     </div>
                     <div className='text-left'>
                         <p className='text-[14px] text-left'>Category</p>
                         <select
                             id="selectBox"
-                            value={selectedValue}
-                            // onChange={handleChange}
+                            value={selectedCategory}
+                            onChange={(e) => setSelectedCategory(e.target.value)}
                             className="text-[14px] my-2 border px-3 py-2 rounded w-64 d-flex text-left h-[42px] w-[400px]"
                         >
                             <option value="">-- Select --</option>
-                            {mockCategories.map((option) => (
+                            {categoriesList.map((option) => (
                                 <option key={option.id} value={option.id}>
-                                    {option.name}
+                                    {option.title}
                                 </option>
                             ))}
                         </select>
 
                         {selectedValue && (
                             <p className="text-[14px] mt-3 text-green-600">
-                                Selected: {mockCategories.find(opt => opt.value === selectedValue)?.label}
+                                Selected: {categoriesList.find(opt => opt.value === selectedValue)?.label}
                             </p>
                         )}
                     </div>
                     <div className='text-left'>
                         <p className=' text-[14px] text-left'>Description</p>
-                        <textarea rows={5} className='text-[14px] my-2 border px-3 py-2 rounded w-64 d-flex text-left h-[120px] w-[400px]' placeholder='Enter Description' />
+                        <textarea 
+                            rows={5} 
+                            value = {description}
+                            onChange={e=> setDescription(e.target.value)}
+                            className='text-[14px] my-2 border px-3 py-2 rounded w-64 d-flex text-left h-[120px] w-[400px]' 
+                            placeholder='Enter Description' />
                     </div>
                     <div className='text-left'>
                         <p className='text-[14px] text-left'>Price</p>
-                        <input type="text" className='text-[14px] my-2 border px-3 py-2 rounded w-64 d-flex text-left h-[42px] w-[400px]' value="" placeholder='Enter Price' />
+                        <input 
+                            type="text" 
+                            className='text-[14px] my-2 border px-3 py-2 rounded w-64 d-flex text-left h-[42px] w-[400px]' 
+                            value={price}
+                            onChange={e=> setPrice(e.target.value)}
+                            placeholder='Enter Price' />
                     </div>
                     <div className='text-left'>
                         <span className='text-[14px] text-left'>Active</span>

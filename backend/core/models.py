@@ -68,7 +68,7 @@ class ShippingAddress(models.Model):
 
 # category
 class Category(models.Model):
-    title = models.CharField(max_length=255)    
+    title = models.CharField(max_length=255, unique=True)    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='created_categories', null=True, blank=True)
@@ -85,7 +85,7 @@ class Category(models.Model):
 # product
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)   
-    title = models.CharField(max_length=255)
+    title = models.CharField(unique=True, max_length=255)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
     image = models.ImageField(upload_to='products/', blank=True, null=True)
