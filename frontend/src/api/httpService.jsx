@@ -28,6 +28,13 @@ export const deleteRequest = async (url) => {
   return response;
 };
 
+// PATCH request
+export const patchRequest = async (url, data) => {
+  const response = await axiosInstance.patch(url, data);
+  // return response.data;
+  return response;
+};
+
 // export const getRequest = (url) => axios.get(API_BASE + url);
 // export const postRequest = (url, data) => axios.post(API_BASE + url, data);
 // export const putRequest = (url, data) => axios.put(API_BASE + url, data);
