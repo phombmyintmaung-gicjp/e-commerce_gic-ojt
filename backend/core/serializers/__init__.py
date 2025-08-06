@@ -13,6 +13,8 @@ from .review import ReviewListSerializer, ReviewCreateSerializer
 from .payment_method import PaymentMethodListSerializer, PaymentMethodCreateSerializer, PaymentMethodUpdateSerializer
 from .payment import PaymentListSerializer, PaymentCreateSerializer
 from .shippingfee import ShippingFeeListSerializer, ShippingFeeCreateSerializer, ShippingFeeUpdateSerializer
+from .regions import RegionsListSerializer
+from .townships import TownshipsListSerializer
 __all__ = [
     'UserMeSerializer',
     'CustomerListSerializer',
@@ -58,4 +60,6 @@ __all__ = [
     'ShippingFeeListSerializer',
     'ShippingFeeCreateSerializer',
     'ShippingFeeUpdateSerializer',
+    'RegionsListSerializer',
+    'TownshipsListSerializer'
 ]

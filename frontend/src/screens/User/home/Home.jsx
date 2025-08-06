@@ -10,8 +10,8 @@ const Home = () => {
   const [activeTab, setActiveTab] = useState("All");
   const productsRef = useRef(null);
 
-  const handleCategoryClick = (category) => {
-    setActiveTab(category);
+  const handleCategoryClick = (categoryTitle) => {
+    setActiveTab(categoryTitle);
     productsRef.current?.scrollIntoView({ behavior: "smooth" });
   };
   return (

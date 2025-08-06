@@ -1,26 +1,28 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { getCategory } from "../../api/apiService";
 
 const Products = ({ activeTab, setActiveTab }) => {
-  const categories = [
-    "All",
-    "Men",
-    "Women",
-    "Kids",
-    "New",
-    "Trends",
-    "Men1",
-    "Women1",
-    "Kids1",
-    "New1",
-    "Trends1",
-    "Men2",
-    "Women2",
-    "Kids2",
-    "New2",
-    "Trends2",
-  ];
+  const [categories, setCategories] = useState([]);
+  const scrollRef = useRef(null);
+  const [isDown, setIsDown] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  useEffect(() => {
+    getCategoryNames();
+  }, []);
+
+  const getCategoryNames = async () => {
+    try {
+      const response = await getCategory();
+      setCategories(response.data);
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+    }
+  };
+
   const categoryImages = categories.reduce((acc, category) => {
-    acc[category] = [
+    acc[category.title] = [
       "https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Events/2024/Stores-Gaming/FinalGraphics/Fuji_Gaming_store_Dashboard_card_1x_EN._SY304_CB564799420_.jpg",
       "https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Events/2025/BTS25/GenAIExperiment/Group_C/Fuji_SingleImageCard_BTS25_1x._SY304_CB789324272_.jpg",
       "https://m.media-amazon.com/images/I/81qsstEtrgL._AC_SY200_.jpg",
@@ -28,24 +30,21 @@ const Products = ({ activeTab, setActiveTab }) => {
     ];
     return acc;
   }, {});
-  const scrollRef = useRef(null);
-  let isDown = false;
-  let startX;
-  let scrollLeft;
+
   const handleMouseDown = (e) => {
-    isDown = true;
+    setIsDown(true);
     scrollRef.current.classList.add("cursor-grabbing");
-    startX = e.pageX - scrollRef.current.offsetLeft;
-    scrollLeft = scrollRef.current.scrollLeft;
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
   };
 
   const handleMouseLeave = () => {
-    isDown = false;
+    setIsDown(false);
     scrollRef.current.classList.remove("cursor-grabbing");
   };
 
   const handleMouseUp = () => {
-    isDown = false;
+    setIsDown(false);
     scrollRef.current.classList.remove("cursor-grabbing");
   };
 
@@ -53,12 +52,14 @@ const Products = ({ activeTab, setActiveTab }) => {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = x - startX; // speed multiplier
+    const walk = x - startX;
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
+
   return (
     <section className="products py-5 px-10 bg-[var(--color-white)]">
       <div className="max-w-screen-xl mx-auto text-center">
+        {/* Category Tabs */}
         <div
           ref={scrollRef}
           onMouseDown={handleMouseDown}
@@ -67,21 +68,22 @@ const Products = ({ activeTab, setActiveTab }) => {
           onMouseMove={handleMouseMove}
           className="overflow-x-auto whitespace-nowrap scrollbar-hide mb-6">
           <div className="inline-flex gap-4">
-            {categories.map((cat, index) => (
+            {categories.map((cat) => (
               <button
-                key={`${cat}-${index}`}
-                onClick={() => setActiveTab(cat)}
+                key={cat.id}
+                onClick={() => setActiveTab(cat.title)}
                 className={`px-6 py-2 rounded-full hover:bg-[var(--color-highlight)] border hover:border-[var(--color-highlight)] text-sm font-semibold transition-all shrink-0
                   ${
-                    activeTab === cat
+                    activeTab === cat.title
                       ? "bg-black text-white border-black"
-                      : "bg-white text-black border-gray-300 "
+                      : "bg-white text-black border-gray-300"
                   }`}>
-                {cat}
+                {cat.title}
               </button>
             ))}
           </div>
         </div>
+
         {/* Category Content */}
         {(categoryImages[activeTab] || []).length === 0 ? (
           <p className="text-gray-500">
@@ -100,11 +102,9 @@ const Products = ({ activeTab, setActiveTab }) => {
                     className="w-[250px] h-[250px] object-cover rounded-3xl mb-2 border border-[var(--color-black)]"
                   />
                   <div className="w-full flex justify-between items-start text-sm">
-                    {/* Left: product name */}
                     <p className="font-semibold text-gray-800 truncate max-w-[60%]">
                       {`${activeTab} Product ${index + 1}`}
                     </p>
-                    {/* Right: price + rating */}
                     <div className="flex flex-col items-end text-yellow-500">
                       <span className="font-semibold text-gray-900">
                         MMK {(10000).toFixed(2)}
@@ -118,6 +118,7 @@ const Products = ({ activeTab, setActiveTab }) => {
                 </div>
               ))}
             </div>
+
             {/* See More Button */}
             <div className="flex justify-center">
               <button

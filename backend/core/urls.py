@@ -17,7 +17,9 @@ from .views import (
     PaymentMethodViewSet,
     PaymentViewSet,
     ShippingFeeViewSet, 
-    UserMeViewSet
+    UserMeViewSet,
+    RegionsListViewSet,
+    TownshipsListViewSet
 )
 router = routers.DefaultRouter()
 
@@ -35,6 +37,8 @@ router.register(r'review', ReviewViewSet)
 router.register(r'paymentMethod', PaymentMethodViewSet)
 router.register(r'payment', PaymentViewSet)
 router.register(r'shippingfee', ShippingFeeViewSet)
+router.register(r'regionslist', RegionsListViewSet)
+router.register(r'townshipslist', TownshipsListViewSet)
 
 
 # router.register(r'productInvetory', ProductInventoryViewSet)
