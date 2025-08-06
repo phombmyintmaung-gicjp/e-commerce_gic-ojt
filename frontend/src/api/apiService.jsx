@@ -3,6 +3,7 @@ import {
   postRequest,
   putRequest,
   deleteRequest,
+  patchRequest
 } from "./httpService";
 
 // Auth
@@ -23,13 +24,15 @@ export const logoutUser = () => {
 export function createUser(data) {
   return postRequest("customers/", data);
 }
-
 export function getUsers() {
   return getRequest("customers/");
 }
-
 export function getUserById(id) {
   return getRequest(`customers/${id}`);
+}
+
+export const updateUserInfo = (id, data) => {
+  return patchRequest(`customers/${id}/`, data);
 }
 // Items
 export function getProducts() {
