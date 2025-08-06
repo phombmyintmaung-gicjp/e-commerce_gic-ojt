@@ -21,20 +21,15 @@ const Login = () => {
       };
       const response = await loginUser(authData);
       const { access, refresh } = response.data;
-
       localStorage.setItem("access_token", access);
       localStorage.setItem("refresh_token", refresh);
-
       const user = await retrieveMe();
       localStorage.setItem("user", JSON.stringify(user.data));
-      
       if (user.data.is_staff || user.data.is_superuser) {
         window.location.href = "/admin/dashboard";
       } else {
         window.location.href = "/";
       }
-
-
     } catch (error) {
       console.error(error);
       const detail =
