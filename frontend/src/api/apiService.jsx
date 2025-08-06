@@ -19,12 +19,17 @@ export const logoutUser = () => {
   localStorage.removeItem("user");
 };
 
+// customer apis
 export function createUser(data) {
   return postRequest("customers/", data);
 }
 
 export function getUsers() {
   return getRequest("customers/");
+}
+
+export function getUserById(id) {
+  return getRequest(`customers/${id}`);
 }
 // Items
 export function getProducts() {
@@ -74,3 +79,13 @@ export const deleteCategory = (id) => {
 export const retrieveMe = () => {
   return getRequest("user/me/");
 };
+
+//regions
+export const getRegionsList = () => {
+  return getRequest("regionslist/");
+};
+
+export const getTownshipsList = () => {
+  return getRequest("townshipslist/");
+};
+

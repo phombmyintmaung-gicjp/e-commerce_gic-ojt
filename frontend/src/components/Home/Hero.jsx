@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getCategory } from "../../api/apiService";
 
 const Hero = ({ onCategoryClick }) => {
-  const categories = ["Men", "Women", "Kids", "New", "Trends"];
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    getCategoryNames();
+  }, []);
+  const getCategoryNames = async () => {
+    try {
+      const response = await getCategory();
+      const sorted = response.data
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        .slice(0, 5);
+      setCategories(sorted);
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+    }
+  };
+
   const chunkArray = (arr, size) => {
     const chunks = [];
     for (let i = 0; i < arr.length; i += size) {
@@ -28,11 +45,10 @@ const Hero = ({ onCategoryClick }) => {
             }`}>
             {row.map((cat) => (
               <button
-                key={cat}
-                to={`/category/${cat.toLowerCase()}`}
-                onClick={() => onCategoryClick(cat)}
+                key={cat.id}
+                onClick={() => onCategoryClick(cat.title)}
                 className="px-5 py-2 bg-[var(--color-black)] text-white transition-all hover:-translate-y-1 hover:text-[var(--color-white)] border border-[var(--color-black)] drop-shadow-lg rounded-lg text-center min-w-[120px]">
-                {cat}
+                {cat.title}
               </button>
             ))}
           </div>

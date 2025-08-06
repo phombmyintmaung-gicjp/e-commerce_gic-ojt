@@ -12,6 +12,8 @@ from .review import ReviewViewSet
 from .payment_method import PaymentMethodViewSet
 from .payment import PaymentViewSet
 from .shippingfee import ShippingFeeViewSet
+from .regions import RegionsListViewSet
+from .townships import TownshipsListViewSet
 __all__ = [
     'UserMeViewSet',
     'CustomerViewSet',
@@ -28,7 +30,9 @@ __all__ = [
     'ReviewViewSet',
     'PaymentMethodViewSet',
     'PaymentViewSet',
-    'ShippingFeeViewSet'
+    'ShippingFeeViewSet',
+    'RegionsListViewSet',
+    'TownshipsListViewSet'
 ]
 
 # # views.py
