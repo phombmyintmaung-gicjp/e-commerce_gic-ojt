@@ -14,7 +14,7 @@ class CustomerListSerializer(serializers.ModelSerializer):
         model = Customer
         fields = [
             'id', 'username', 'first_name', 'last_name', 'email', 'address', 
-            'township', 'township_name', 'region_name', 'phoneNo',
+            'township', 'township_name', 'region_name', 'phone_number',
             'is_active', 'date_joined', 'is_staff', 'is_superuser', 'last_order_date'
         ]
         
