@@ -8,6 +8,7 @@ from ..models import Customer, Category, Product, OrderItem, Review
 from ..serializers import ProductInventorySerializer, ProductListSerializer, ProductCreateSerializer, ProductUpdateSerializer
 from datetime import timedelta
 from django.db.models import Count, Sum, Avg, Q
+from rest_framework.parsers import MultiPartParser, FormParser
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -19,13 +20,12 @@ class ProductViewSet(viewsets.ModelViewSet):
         'partial_update': ProductUpdateSerializer,
         'destroy': ProductListSerializer,
     }
-    
+    parser_classes = [MultiPartParser, FormParser]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['category', 'is_active', 'price'] 
     search_fields = ['title', 'category', 'description', 'attributes']
     ordering_fields = ['title', 'category']
     ordering = ['-title']
-    
     def get_serializer_class(self):
         return self.serializer_classes.get(self.action, ProductListSerializer)
     

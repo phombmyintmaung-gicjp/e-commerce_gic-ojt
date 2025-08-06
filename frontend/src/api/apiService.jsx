@@ -71,6 +71,10 @@ export const deleteCategory = (id) => {
   return deleteRequest(`categories/${id}/`);
 }
 
+export const addProduct = (data) => {
+  return postRequest("products/", data)
+}
+
 export const retrieveMe = () => {
   return getRequest("user/me/");
 };
